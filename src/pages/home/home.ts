@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +7,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  @ViewChild('mainObject') mainObject: any;
+  mainObjectElement: any;
 
+  constructor(public navCtrl: NavController, public platform: Platform) {
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.mainObjectElement.contentWindow.postMessage('goBack', '*');
+      console.log("second");
+      backAction();
+    }, 2);
   }
 
+  ngAfterViewInit() {
+    this.mainObjectElement = this.mainObject.nativeElement;
+  }
 }
