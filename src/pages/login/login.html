@@ -7,8 +7,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-<!-- TODO add custom login form which uses Ajax.
-An iframe will not work here due to Google's and Facebook's policies.
--->
+<ion-content padding>
+  <form (ngSubmit)="login()">
+    <ion-item>
+      <ion-label>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="loginForm.email" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="loginForm.password" name="title"></ion-input>
+    </ion-item>
+    <br />
+    <button ion-button type="submit" block>Log In</button>
+  </form>
 </ion-content>

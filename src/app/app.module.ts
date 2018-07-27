@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { DiscussionPage } from '../pages/discussion/discussion';
+import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DiscussionPage } from '../pages/discussion/discussion';
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

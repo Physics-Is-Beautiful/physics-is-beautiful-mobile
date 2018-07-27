@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
  * Generated class for the LoginPage page.
@@ -15,11 +17,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  loginForm: any = {}
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
+    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  login() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.http.post('http://192.168.0.43:8000/accounts/login', JSON.stringify(this.loginForm))
+      .subscribe(data => {
+        console.log(data);
+      })
   }
 
 }
