@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -12,7 +11,7 @@ export class GlobalSettingsProvider {
 
   rootUrl: string;
 
-  constructor(public http: HttpClient) {
+  constructor() {
     console.log('Hello GlobalSettingsProvider Provider');
 
 

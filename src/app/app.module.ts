@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { DiscussionPage } from '../pages/discussion/discussion';
 import { HTTP } from '@ionic-native/http';
 import { GlobalSettingsProvider } from '../providers/global-settings/global-settings';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
