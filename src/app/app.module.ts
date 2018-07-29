@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { DiscussionPage } from '../pages/discussion/discussion';
 import { HTTP } from '@ionic-native/http';
+import { GlobalSettingsProvider } from '../providers/global-settings/global-settings';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HTTP } from '@ionic-native/http';
     SplashScreen,
     InAppBrowser,
     HTTP,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GlobalSettingsProvider
   ]
 })
 export class AppModule {}
