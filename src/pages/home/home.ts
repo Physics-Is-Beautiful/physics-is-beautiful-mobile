@@ -29,6 +29,12 @@ export class HomePage {
     const siteUrl = globalSettingsProvider.siteUrl();
     const url = siteUrl + this.node;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+    window.addEventListener('message', function (event) {
+      if (event.data === 'pagePushed') {
+        console.log('pagePushed');
+      }
+    });
   }
 
   public ngAfterViewInit() {
