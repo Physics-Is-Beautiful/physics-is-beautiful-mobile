@@ -16,7 +16,7 @@ export class GlobalSettingsProvider {
 
 
     // set the root url to whatever you like. Include http/https and leave out a closing slash.
-    this.rootUrl = 'http://192.168.0.43:8000';
+    this.rootUrl = 'http://localhost:8000';
     // this.rootUrl = 'https://www.physicsisbeautiful.com';
   }
 

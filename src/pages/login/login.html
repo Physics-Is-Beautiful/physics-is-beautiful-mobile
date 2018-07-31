@@ -7,18 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <form action="http://192.168.0.43:8000/accounts/login" method="POST">
-    <ion-item>
-      <ion-label>Username</ion-label>
-      <ion-input type="text" [(ngModel)]="loginForm.email" name="login"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="loginForm.password" name="password"></ion-input>
-    </ion-item>
-    <br />
-    <button ion-button type="submit" block>Log In</button>
-  </form>
-  <a href="https://www.facebook.com/dialog/oauth?client_id=1536821719965828&redirect_uri=https%3A%2F%2Fwww.physicsisbeautiful.com%2Faccounts%2Ffacebook%2Flogin%2Fcallback%2F&scope=email&response_type=code&state=dzQf0OUUAoXI">Facebook</a>
+<ion-content>
+  <iframe #mainObject id="main-object"  [src]="pageUrl">
+    <p>Loading...</p>
+  </iframe>
 </ion-content>
