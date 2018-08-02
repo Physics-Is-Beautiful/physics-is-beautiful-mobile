@@ -34,3 +34,4 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 package-lock.json
+src/providers/global-settings/global-settings.ts
