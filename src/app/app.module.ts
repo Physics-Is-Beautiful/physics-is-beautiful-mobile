@@ -13,6 +13,7 @@ import { DiscussionPage } from '../pages/discussion/discussion';
 import { HTTP } from '@ionic-native/http';
 import { GlobalSettingsProvider } from '../providers/global-settings/global-settings';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http'
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    GooglePlus,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider
