@@ -34,9 +34,13 @@ export class LoginPage {
     const url = siteUrl + this.node;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-    let messageListener = this.renderer.listen(window, 'message', (evt) => {
-      this.receiveMessage(evt); 
-    });
+    this.platform.ready().then(() => {
+      let messageListener = this.renderer.listen(window, 'message', (evt) => {
+        this.receiveMessage(evt); 
+      });
+    })
+
+
   }
 
   receiveMessage(event) {
