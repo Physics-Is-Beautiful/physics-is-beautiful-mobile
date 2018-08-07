@@ -14,6 +14,8 @@ import { HTTP } from '@ionic-native/http';
 import { GlobalSettingsProvider } from '../providers/global-settings/global-settings';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Toast } from '@ionic-native/toast';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     SplashScreen,
     InAppBrowser,
     GooglePlus,
+    NativeStorage,
+    Toast,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider

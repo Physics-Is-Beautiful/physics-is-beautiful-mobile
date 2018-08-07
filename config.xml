@@ -86,6 +86,9 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
         <variable name="WEB_APPLICATION_CLIENT_ID" value="com.googleusercontent.apps.1090448644110-r8o52h1sqpbq7pp1j8ougcr1e35qicqg" />
     </plugin>
+    <allow-navigation href="http://192.168.0.43:8100" />
+    <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.6.2" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
 </widget>

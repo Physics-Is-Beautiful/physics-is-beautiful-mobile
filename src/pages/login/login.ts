@@ -4,8 +4,10 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { IonicPage, Platform, NavController, NavParams } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 import { HomePage } from "../home/home";
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { GooglePlus } from "@ionic-native/google-plus";
+import { Toast } from '@ionic-native/toast';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,7 +29,7 @@ export class LoginPage {
   public pageUrl: SafeUrl;
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer,
-              private renderer: Renderer2,
+              private renderer: Renderer2, private nativeStorage: NativeStorage, private toast: Toast, private iab: InAppBrowser,
               private globalSettingsProvider: GlobalSettingsProvider, private googlePlus: GooglePlus) {
 
     const siteUrl = globalSettingsProvider.siteUrl();
@@ -48,32 +50,40 @@ export class LoginPage {
     if (event.data === 'googleLogin') {
       this.doGoogleLogin();
     } else if (event.data === 'facebookLogin') {
-      console.log('facebookLogin');
+      this.doFacebookLogin();
     }
   }
 
   doGoogleLogin() {
     console.log('googleLogin');
     let nav = this.navCtrl;
-    let env = this;
+    let toast = this.toast;
+    toast.show("Login successful!", '1500', 'bottom');
     this.googlePlus.login({
       'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
       'webClientId': '1090448644110-r8o52h1sqpbq7pp1j8ougcr1e35qicqg.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
       'offline': true
     })
-    .then(function (user) {  
-      this.nativeStorage.setItem('user', {
-        name: user.displayName,
-        email: user.email,
-        picture: user.imageUrl
+    .then(function (data) {  
+      window.alert(JSON.stringify(data));
+      // this.nativeStorage.setItem('user', {
+      //   name: user.displayName,
+      //   email: user.email,
+      //   picture: user.imageUrl
       })
-      .then(function(){
-        nav.push(HomePage);
-      }, function (error) {
-        console.log(error);
-      })
-    }, function (error) {
-      console.log(error);
-    });
+    //   .then(function(){
+    //     toast.show("Login successful!", '1500', 'bottom');
+    //     nav.push(HomePage);
+    //   }, function (error) {
+    //     console.log(error);
+    //   })
+    // }, function (error) {
+    //   console.log(error);
+    // });
+  }
+
+  doFacebookLogin() {
+    console.log('facebookLogin');
+    this.iab.create(this.globalSettingsProvider.siteUrl() + '/accounts/facebook/login/?process=');
   }
 }
