@@ -30,9 +30,9 @@ export class HomePage {
     const url = siteUrl + this.node;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-    window.addEventListener('message', function (event) {
-      if (event.data === 'pagePushed') {
-        console.log('pagePushed');
+    window.addEventListener("message", (event) => {
+      if (event.data === "pagePushed") {
+        console.log("pagePushed");
       }
     });
   }
