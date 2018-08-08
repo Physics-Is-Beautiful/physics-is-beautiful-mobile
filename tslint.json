@@ -4,5 +4,6 @@
       "max-line-length": {
           "options": [120]
       },
+      "no-console": false
   }
 }
