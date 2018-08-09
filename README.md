@@ -34,9 +34,15 @@ To test a real, native app you will need to do some additional work.
 ### Android Setup
 If you already have Android Studio or the command-line tools installed, you can skip this step. 
 
-Otherwise, it is recommended that you install the command-line tools from source through this [page](https://developer.android.com/studio/#command-tools). You can use the included `sdkmanager` script to install any necessary scripts (such as platform-tools). See the Android Developer link for more information, and for ease of access, add the scripts to your PATH.
+Otherwise, it is recommended that you install the command-line tools from source through this [page](https://developer.android.com/studio/#command-tools). You can use the included `sdkmanager` script to install the necessary scripts. See the Android Developer link for more information, and for ease, add the scripts to your PATH.
 
-You will also need to install Gradle. 
+You will need to use sdkmanager to install: 
+
+* `platform-tools`
+* `build-tools`
+* an Android platform of your choice (recommended: 26) 
+
+You will also need to install Gradle. The best way to do this is through your system's package manager.
 
 Add Android as a platform.
 
