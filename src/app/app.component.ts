@@ -3,6 +3,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Nav, Platform } from "ionic-angular";
 
+import { NativeAudio } from "@ionic-native/native-audio";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
@@ -17,7 +18,8 @@ export class MyApp {
 
   public pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+              private nativeAudio: NativeAudio) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -35,6 +37,15 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.nativeAudio.preloadSimple("audioComplete", "assets/audio/complete.mp3");
+      this.nativeAudio.preloadSimple("audioContinue", "assets/audio/continue.mp3");
+      this.nativeAudio.preloadSimple("audioCorrect", "assets/audio/correct.mp3");
+      this.nativeAudio.preloadSimple("audioDoubleRainbow", "assets/audio/doublerainbow.mp3");
+      this.nativeAudio.preloadSimple("audioExamCorrect", "assets/audio/exam_correct.mp3");
+      this.nativeAudio.preloadSimple("audioExamStart", "assets/audio/exam_start.mp3");
+      this.nativeAudio.preloadSimple("audioIncorrect", "assets/audio/incorrect.mp3");
+
     });
   }
 

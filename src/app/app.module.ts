@@ -9,6 +9,7 @@ import { MyApp } from "./app.component";
 import { HttpClient, HttpClientModule, HttpHandler } from "@angular/common/http";
 import { GooglePlus } from "@ionic-native/google-plus";
 import { HTTP } from "@ionic-native/http";
+import { NativeAudio } from "@ionic-native/native-audio";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -46,6 +47,7 @@ import { GlobalSettingsProvider } from "../providers/global-settings/global-sett
     GooglePlus,
     NativeStorage,
     Toast,
+    NativeAudio,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider,
