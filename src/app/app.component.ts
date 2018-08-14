@@ -65,6 +65,8 @@ export class MyApp {
     this.http.get("/api/v1/profiles/me").subscribe((data) => {
       if (!("is_anonymous" in data)) {
         this.pages[2].title = "Logout";
+      } else {
+        this.pages[2].title = "Login / Sign Up";
       }
     });
   }
