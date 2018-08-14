@@ -1,7 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { NativeAudio } from "@ionic-native/native-audio";
-import { NavController, Platform } from "ionic-angular";
+import { Events, NavController, Platform } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 
 @Component({
@@ -21,7 +21,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public platform: Platform,
               public globalSettingsProvider: GlobalSettingsProvider, private sanitizer: DomSanitizer,
-              private nativeAudio: NativeAudio) {
+              private nativeAudio: NativeAudio, public events: Events) {
 
     const siteUrl = globalSettingsProvider.siteUrl();
     const url = siteUrl + this.node;
@@ -48,6 +48,8 @@ export class HomePage {
       console.log("second");
       backAction();
     }, 2);
+
+    this.events.publish("component:updateNav");
   }
 
   public pagePush() {

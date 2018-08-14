@@ -1,8 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
-import { Nav, Platform } from "ionic-angular";
+import { Events, Nav, Platform } from "ionic-angular";
 
+import { HttpClient } from "@angular/common/http";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
@@ -19,7 +20,7 @@ export class MyApp {
   public pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-              private nativeAudio: NativeAudio) {
+              private nativeAudio: NativeAudio, private http: HttpClient, public events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -29,6 +30,11 @@ export class MyApp {
       { title: "Login / Sign Up", component: LoginPage },
     ];
 
+    this.updateNav();
+
+    this.events.subscribe("component:updateNav", () => {
+      this.updateNav();
+    });
   }
 
   public initializeApp() {
@@ -53,5 +59,13 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  public updateNav() {
+    this.http.get("/api/v1/profiles/me").subscribe((data) => {
+      if (!("is_anonymous" in data)) {
+        this.pages[2].title = "Logout";
+      }
+    });
   }
 }

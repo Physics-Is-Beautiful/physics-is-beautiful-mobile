@@ -2,7 +2,7 @@ import { Component, Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { NativeStorage } from "@ionic-native/native-storage";
-import { IonicPage, NavController, NavParams, Platform } from "ionic-angular";
+import { Events, IonicPage, NavController, NavParams, Platform } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 import { HomePage } from "../home/home";
 
@@ -31,7 +31,7 @@ export class LoginPage {
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
-              private toast: Toast, private iab: InAppBrowser, private http: HttpClient,
+              private toast: Toast, private iab: InAppBrowser, private http: HttpClient, public events: Events,
               private globalSettingsProvider: GlobalSettingsProvider, private googlePlus: GooglePlus) {
 
     this.platform.ready().then(() => {
@@ -42,8 +42,10 @@ export class LoginPage {
       this.http.get("/api/v1/profiles/me").subscribe((data) => {
         if ("is_anonymous" in data) {
           this.node = "/accounts/login/?pib_mobile=true";
+          this.returnHome(true);
         } else {
           this.node = "/accounts/logout";
+          this.returnHome(false);
         }
         const siteUrl = this.globalSettingsProvider.siteUrl();
         const url = siteUrl + this.node;
@@ -64,12 +66,22 @@ export class LoginPage {
 
   public doGoogleLogin() {
     console.log("googleLogin");
-    this.iab.create(this.globalSettingsProvider.siteUrl() + "/accounts/google/login/?process=");
+    const browser = this.iab.create(this.globalSettingsProvider.siteUrl() + "/accounts/google/login/?process=");
   }
 
   public doFacebookLogin() {
     console.log("facebookLogin");
-    this.iab.create(this.globalSettingsProvider.siteUrl() + "/accounts/facebook/login/?process=");
+    const browser = this.iab.create(this.globalSettingsProvider.siteUrl() + "/accounts/facebook/login/?process=");
+  }
+
+  public returnHome(onLogin: boolean) {
+    this.http.get("/api/v1/profiles/me").subscribe((data) => {
+      if (("is_anonymous" in data && onLogin) || !("is_anonymous" in data) && !onLogin) {
+        window.setTimeout(() => this.returnHome(onLogin), 100);
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
   }
 
 }
