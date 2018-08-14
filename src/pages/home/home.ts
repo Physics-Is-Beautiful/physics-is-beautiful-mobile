@@ -23,12 +23,6 @@ export class HomePage {
               public globalSettingsProvider: GlobalSettingsProvider, private sanitizer: DomSanitizer,
               private nativeAudio: NativeAudio) {
 
-    const backAction =  platform.registerBackButtonAction(() => {
-      this.mainObjectElement.contentWindow.postMessage("goBack", "*");
-      console.log("second");
-      backAction();
-    }, 2);
-
     const siteUrl = globalSettingsProvider.siteUrl();
     const url = siteUrl + this.node;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -49,6 +43,11 @@ export class HomePage {
 
   public ngAfterViewInit() {
     this.mainObjectElement = this.mainObject.nativeElement;
+    const backAction =  this.platform.registerBackButtonAction(() => {
+      this.mainObjectElement.contentWindow.postMessage("goBack", "*");
+      console.log("second");
+      backAction();
+    }, 2);
   }
 
   public pagePush() {

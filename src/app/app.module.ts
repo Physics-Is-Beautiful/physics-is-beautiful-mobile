@@ -6,7 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { HomePage } from "../pages/home/home";
 import { MyApp } from "./app.component";
 
-import { HttpClient, HttpClientModule, HttpHandler } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { GooglePlus } from "@ionic-native/google-plus";
 import { HTTP } from "@ionic-native/http";
 import { NativeAudio } from "@ionic-native/native-audio";
@@ -37,6 +37,7 @@ import { GlobalSettingsProvider } from "../providers/global-settings/global-sett
 
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
 
