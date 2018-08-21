@@ -17,6 +17,7 @@ import { Toast } from "@ionic-native/toast";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { LoginPage } from "../pages/login/login";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
+import { Network } from "@ionic-native/network";
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -52,6 +53,7 @@ import { GlobalSettingsProvider } from "../providers/global-settings/global-sett
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider,
+    Network
   ],
 })
 export class AppModule {}

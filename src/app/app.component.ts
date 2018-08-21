@@ -9,6 +9,8 @@ import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 
+import { Network } from '@ionic-native/network';
+
 @Component({
   templateUrl: "app.html",
 })
