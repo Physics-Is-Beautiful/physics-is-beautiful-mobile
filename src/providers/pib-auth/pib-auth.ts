@@ -24,43 +24,7 @@ export class PibAuthProvider {
     }
   }
 
-  // public async getSessionIDCookie() {
-  //   const tempFrame = document.createElement("iframe");
-  //   tempFrame.src = this.settings.siteUrl() + "/accounts/login";
-  //   tempFrame.style.display = "none";
-  //   document.body.appendChild(tempFrame);
-  //   tempFrame.onload = () => {
-  //     tempFrame.contentWindow.postMessage("sessionIDCookie", "*");
-  //   };
-
-  //   window.addEventListener("message", (event) => {
-  //     console.log(event.data);
-  //     if (event.data.message && event.data.message === "sessionIDCookie") {
-  //       console.log(event.data.data);
-  //     }
-  //   });
-  // }
-
-  // public tryLogin(sessionIDCookie?: any): Promise<object> {
-  //   const requestOptions = {
-  //     params: new HttpParams(),
-  //   };
-  //   return new Promise<object>((resolve, reject) => {
-  //     if (sessionIDCookie) {
-  //       requestOptions.params.set("Cookie", sessionIDCookie);
-  //     }
-  //     this.http.get(this.settings.siteUrl() + "/api/v1/profiles/me", requestOptions).toPromise().then(((data) => {
-  //       resolve(data);
-  //     }));
-  //   });
-  // }
-
-  // public try() {
-  //   this.http.get(this.settings.siteUrl() + "/accounts/login/").toPromise().then((data) => {
-  //     console.log(data);
-  //   }, (error) => {
-  //     console.log(error);
-  //   });
-  // }
-
+  public isLoggedIn(data: any) {
+    return !("is_anonymous" in data);
+  }
 }
