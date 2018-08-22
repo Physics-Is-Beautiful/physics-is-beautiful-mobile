@@ -3,6 +3,7 @@ import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { Events, NavController, Platform } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
+import { PibAuthProvider } from "../../providers/pib-auth/pib-auth";
 
 @Component({
   selector: "page-home",
@@ -21,7 +22,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public platform: Platform,
               public globalSettingsProvider: GlobalSettingsProvider, private sanitizer: DomSanitizer,
-              private nativeAudio: NativeAudio, public events: Events) {
+              private nativeAudio: NativeAudio, public events: Events, private pibAuth: PibAuthProvider) {
 
     const siteUrl = globalSettingsProvider.siteUrl();
     const url = siteUrl + this.node;
@@ -37,6 +38,8 @@ export class HomePage {
         this.nativeAudio.play(event.data).then(null, (error) => {
           console.log(error);
       });
+      } else if (event.data.message === "loginInfo") {
+        this.pibAuth.processLoginData(event.data.data);
       }
     });
   }

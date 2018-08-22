@@ -18,6 +18,7 @@ import { DiscussionPage } from "../pages/discussion/discussion";
 import { LoginPage } from "../pages/login/login";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { Network } from "@ionic-native/network";
+import { PibAuthProvider } from '../providers/pib-auth/pib-auth';
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -53,7 +54,8 @@ import { Network } from "@ionic-native/network";
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider,
-    Network
+    Network,
+    PibAuthProvider
   ],
 })
 export class AppModule {}

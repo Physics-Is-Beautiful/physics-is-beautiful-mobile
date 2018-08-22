@@ -9,8 +9,6 @@ import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 
-import { Network } from '@ionic-native/network';
-
 @Component({
   templateUrl: "app.html",
 })
@@ -22,7 +20,8 @@ export class MyApp {
   public pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-              private nativeAudio: NativeAudio, private http: HttpClient, public events: Events) {
+              private nativeAudio: NativeAudio, private http: HttpClient,
+              public events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -32,10 +31,12 @@ export class MyApp {
       { title: "Login / Sign Up", component: LoginPage },
     ];
 
-    this.updateNav();
+    this.events.subscribe("component:updateNav:logout", () => {
+      this.updateNav(false);
+    });
 
-    this.events.subscribe("component:updateNav", () => {
-      this.updateNav();
+    this.events.subscribe("component:updateNav:login", () => {
+      this.updateNav(true);
     });
   }
 
@@ -63,13 +64,11 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  public updateNav() {
-    this.http.get("/api/v1/profiles/me").subscribe((data) => {
-      if (!("is_anonymous" in data)) {
-        this.pages[2].title = "Logout";
-      } else {
-        this.pages[2].title = "Login / Sign Up";
-      }
-    });
+  public updateNav(loginStatus: boolean) {
+    if (loginStatus) {
+      this.pages[2].title = "Login / Sign Up";
+    } else {
+      this.pages[2].title = "Logout";
+    }
   }
 }
