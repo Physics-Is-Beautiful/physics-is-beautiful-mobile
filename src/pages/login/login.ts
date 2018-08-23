@@ -74,10 +74,12 @@ export class LoginPage {
         const loggedInNow = this.pibAuth.isLoggedIn(event.data.data);
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
+          this.events.publish("component:updateNav:login");
           this.navCtrl.setRoot(HomePage);
           this.messageListener();
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
+          this.events.publish("component:updateNav:logout");
           this.navCtrl.setRoot(HomePage);
           this.messageListener();
         }
