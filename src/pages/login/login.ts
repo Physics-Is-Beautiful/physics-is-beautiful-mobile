@@ -41,8 +41,6 @@ export class LoginPage {
               private settings: GlobalSettingsProvider, private googlePlus: GooglePlus,
               private pibAuth: PibAuthProvider, private zone: NgZone) {
 
-    const scope = this;
-
     this.platform.ready().then(() => {
 
       this.updateUrl("/blog/blank");
