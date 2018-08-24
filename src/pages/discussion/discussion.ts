@@ -33,7 +33,7 @@ export class DiscussionPage {
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
     window.addEventListener("message", (event) => {
-      const eventData = JSON.parse(event.data);
+      const eventData = event.data;
       if (eventData.message === "pagePushed") {
         this.pagePush(eventData.historyLength);
       }

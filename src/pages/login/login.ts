@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild } from "@angular/core";
+import { Component, NgZone, Renderer2, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { NativeStorage } from "@ionic-native/native-storage";
@@ -39,39 +39,42 @@ export class LoginPage {
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
               private toast: Toast, private iab: InAppBrowser, private http: HttpClient, public events: Events,
               private settings: GlobalSettingsProvider, private googlePlus: GooglePlus,
-              private pibAuth: PibAuthProvider) {
+              private pibAuth: PibAuthProvider, private zone: NgZone) {
+
+    const scope = this;
 
     this.platform.ready().then(() => {
+
+      this.updateUrl("/blog/blank");
+
       this.messageListener = this.renderer.listen(window, "message", (evt) => {
         this.receiveMessage(evt);
       });
-
-      this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settings.siteUrl() + "/blog/blank");
     });
 
   }
 
-  public receiveMessage(event) {
-    console.log("receiving message: " + event.data);
-    if (event.data === "googleLogin") {
+  public receiveMessage(evt) {
+    console.log("login receive");
+    console.log("receiving message: " + JSON.stringify(evt.data));
+    console.log("loggedInInitially " + this.loggedInInitially);
+    if (evt.data === "googleLogin") {
       this.doGoogleLogin();
-    } else if (event.data === "facebookLogin") {
+    } else if (evt.data === "facebookLogin") {
       this.doFacebookLogin();
-    } else if (event.data.message === "loginInfo") {
+    } else if (evt.data.message === "loginInfo") {
       if (typeof this.loggedInInitially === "undefined") {
 
         this.loggedInInitially = false;
         let node = "/accounts/login/?pib_mobile=true";
-        if (this.pibAuth.isLoggedIn(event.data.data)) {
+        if (this.pibAuth.isLoggedIn(evt.data.data)) {
           node = "/accounts/logout/?pib_mobile=true";
           this.loggedInInitially = true;
         }
 
-        const url = this.settings.siteUrl() + node;
-        console.log(url);
-        this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        this.updateUrl(node);
       } else {
-        const loggedInNow = this.pibAuth.isLoggedIn(event.data.data);
+        const loggedInNow = this.pibAuth.isLoggedIn(evt.data.data);
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
           this.events.publish("component:updateNav:login");
@@ -95,6 +98,11 @@ export class LoginPage {
   public doFacebookLogin() {
     console.log("facebookLogin");
     const browser = this.iab.create(this.settings.siteUrl() + "/accounts/facebook/login/?process=");
+  }
+
+  private updateUrl(url: string) {
+    this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settings.siteUrl() + url);
+    this.zone.run(() => {});
   }
 
 }
