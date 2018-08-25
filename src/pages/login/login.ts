@@ -2,13 +2,12 @@ import { Component, NgZone, Renderer2, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { NativeStorage } from "@ionic-native/native-storage";
-import { Events, IonicPage, NavController, NavParams, Platform } from "ionic-angular";
+import { Events, IonicPage, NavController, NavParams, Platform, ToastController } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 import { HomePage } from "../home/home";
 
 import { HttpClient } from "@angular/common/http";
 import { GooglePlus } from "@ionic-native/google-plus";
-import { Toast } from "@ionic-native/toast";
 import { PibAuthProvider } from "../../providers/pib-auth/pib-auth";
 
 /**
@@ -37,7 +36,7 @@ export class LoginPage {
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
-              private toast: Toast, private iab: InAppBrowser, private http: HttpClient, public events: Events,
+              private toastCtrl: ToastController, private iab: InAppBrowser, private http: HttpClient, public events: Events,
               private settings: GlobalSettingsProvider, private googlePlus: GooglePlus,
               private pibAuth: PibAuthProvider, private zone: NgZone) {
 
@@ -77,11 +76,13 @@ export class LoginPage {
           // successfully logged out
           this.events.publish("component:updateNav:login");
           this.navCtrl.setRoot(HomePage);
+          this.presentToast("Successfully logged out.");
           this.messageListener();
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
           this.events.publish("component:updateNav:logout");
           this.navCtrl.setRoot(HomePage);
+          this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
           this.messageListener();
         }
       }
@@ -101,6 +102,14 @@ export class LoginPage {
   private updateUrl(url: string) {
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.settings.siteUrl() + url);
     this.zone.run(() => {});
+  }
+
+  private presentToast(msg: string) {
+    const toast = this.toastCtrl.create({
+      duration: 3000,
+      message: msg,
+    });
+    toast.present();
   }
 
 }
