@@ -48,7 +48,6 @@ export class HomePage {
     this.mainObjectElement = this.mainObject.nativeElement;
     const backAction =  this.platform.registerBackButtonAction(() => {
       this.mainObjectElement.contentWindow.postMessage("goBack", "*");
-      console.log("second");
       backAction();
     }, 2);
 
