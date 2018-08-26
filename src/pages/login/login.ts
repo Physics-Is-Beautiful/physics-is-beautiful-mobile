@@ -36,9 +36,8 @@ export class LoginPage {
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
-              private toastCtrl: ToastController, private iab: InAppBrowser, private http: HttpClient, public events: Events,
-              private settings: GlobalSettingsProvider, private googlePlus: GooglePlus,
-              private pibAuth: PibAuthProvider, private zone: NgZone) {
+              private toastCtrl: ToastController, private iab: InAppBrowser, public events: Events,
+              private settings: GlobalSettingsProvider, private pibAuth: PibAuthProvider, private zone: NgZone) {
 
     this.platform.ready().then(() => {
 
@@ -92,11 +91,17 @@ export class LoginPage {
   public doGoogleLogin() {
     console.log("googleLogin");
     const browser = this.iab.create(this.settings.siteUrl() + "/accounts/google/login/?process=");
+    browser.on("exit").subscribe(() => {
+      this.updateUrl("/blog/blank");
+    });
   }
 
   public doFacebookLogin() {
     console.log("facebookLogin");
     const browser = this.iab.create(this.settings.siteUrl() + "/accounts/facebook/login/?process=");
+    browser.on("exit").subscribe(() => {
+      this.updateUrl("/blog/blank");
+    });
   }
 
   private updateUrl(url: string) {
