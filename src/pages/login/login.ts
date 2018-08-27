@@ -17,6 +17,8 @@ import { PibAuthProvider } from "../../providers/pib-auth/pib-auth";
  * Ionic pages and navigation.
  */
 
+ // TODO use ?next= on login and logout pages (google and facebook included) to specify
+
 @IonicPage()
 @Component({
   selector: "page-login",
@@ -41,7 +43,7 @@ export class LoginPage {
 
     this.platform.ready().then(() => {
 
-      this.updateUrl("/blog/blank");
+      this.updateUrl("/accounts/blank");
 
       this.messageListener = this.renderer.listen(window, "message", (evt) => {
         this.receiveMessage(evt);
@@ -64,7 +66,7 @@ export class LoginPage {
         this.loggedInInitially = false;
         let node = "/accounts/login/?pib_mobile=true";
         if (this.pibAuth.isLoggedIn(evt.data.data)) {
-          node = "/accounts/logout/?pib_mobile=true";
+          node = "/accounts/logout/?pib_mobile=true&next=/accounts/blank";
           this.loggedInInitially = true;
         }
 
@@ -76,13 +78,11 @@ export class LoginPage {
           this.events.publish("component:updateNav:login");
           this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged out.");
-          this.messageListener();
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
           this.events.publish("component:updateNav:logout");
           this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
-          this.messageListener();
         }
       }
     }
@@ -90,18 +90,27 @@ export class LoginPage {
 
   public doGoogleLogin() {
     console.log("googleLogin");
-    const browser = this.iab.create(this.settings.siteUrl() + "/accounts/google/login/?process=");
+    const browser = this.iab.create(this.settings.siteUrl() +
+      "/accounts/google/login/?process=&next=/accounts/mobile-next");
+
     browser.on("exit").subscribe(() => {
-      this.updateUrl("/blog/blank");
+      this.updateUrl("/accounts/blank");
     });
   }
 
   public doFacebookLogin() {
     console.log("facebookLogin");
-    const browser = this.iab.create(this.settings.siteUrl() + "/accounts/facebook/login/?process=");
+    const browser = this.iab.create(this.settings.siteUrl() +
+      "/accounts/facebook/login/?process=&next=/accounts/mobile-next");
+
     browser.on("exit").subscribe(() => {
-      this.updateUrl("/blog/blank");
+      this.updateUrl("/accounts/blank");
     });
+  }
+
+  public ionViewWillLeave() {
+    this.messageListener();
+    console.log("login message listener removed");
   }
 
   private updateUrl(url: string) {
