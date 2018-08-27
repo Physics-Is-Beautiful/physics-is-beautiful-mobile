@@ -2,7 +2,7 @@
 <widget id="com.physicsisbeautiful.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Physics is Beautiful</name>
     <description>A mobile app for learning physics.</description>
-    <author email="hello@physicsisbeautiful.com" href="https://www.physicsisbeautiful.com/"></author>
+    <author email="hello@physicsisbeautiful.com" href="https://www.physicsisbeautiful.com/" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
