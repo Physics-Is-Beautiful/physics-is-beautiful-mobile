@@ -53,7 +53,6 @@ export class DiscussionPage {
     this.mainObjectElement = this.mainObject.nativeElement;
     const backAction =  this.platform.registerBackButtonAction(() => {
       this.mainObjectElement.contentWindow.postMessage("goBack", "*");
-      backAction();
     }, 2);
   }
 }

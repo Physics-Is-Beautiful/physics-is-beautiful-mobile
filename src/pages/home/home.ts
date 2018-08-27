@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Renderer2, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { Events, NavController, Platform } from "ionic-angular";
@@ -19,8 +19,9 @@ export class HomePage {
 
   @ViewChild("mainObject") public mainObject: any;
   public mainObjectElement: any;
+  private messageListener: () => void;
 
-  constructor(public navCtrl: NavController, public platform: Platform,
+  constructor(public navCtrl: NavController, public platform: Platform, private renderer: Renderer2,
               public globalSettingsProvider: GlobalSettingsProvider, private sanitizer: DomSanitizer,
               private nativeAudio: NativeAudio, public events: Events, private pibAuth: PibAuthProvider) {
 
@@ -28,11 +29,9 @@ export class HomePage {
     const url = siteUrl + this.node;
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-    window.addEventListener("message", (event) => {
+    this.messageListener = this.renderer.listen(window, "message", (event) => {
       console.log(event.data);
-      if (event.data === "pagePushed") {
-        this.pagePush();
-      } else if (["audioComplete", "audioContinue", "audioCorrect", "audioDoubleRainbow", "audioExamCorrect",
+      if (["audioComplete", "audioContinue", "audioCorrect", "audioDoubleRainbow", "audioExamCorrect",
       "audioExamStart", "audioIncorrect"].indexOf(event.data) > -1) {
         console.log(event.data);
         this.nativeAudio.play(event.data).then(null, (error) => {
@@ -48,14 +47,13 @@ export class HomePage {
     this.mainObjectElement = this.mainObject.nativeElement;
     const backAction =  this.platform.registerBackButtonAction(() => {
       this.mainObjectElement.contentWindow.postMessage("goBack", "*");
-      backAction();
     }, 2);
 
     this.events.publish("component:updateNav");
   }
 
-  public pagePush() {
-    console.log("pagePushed");
-    this.navbarIcon = "arrow-back";
+  public ionViewWillLeave() {
+    this.messageListener();
+    console.log("home message listener removed");
   }
 }
