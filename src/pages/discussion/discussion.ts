@@ -35,19 +35,19 @@ export class DiscussionPage {
     console.log(url);
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
-    window.addEventListener("message", (event) => {
-      const eventData = event.data;
-      if (eventData.message === "pagePushed") {
-        this.pagePush(eventData.historyLength);
-      }
-    });
+    // window.addEventListener("message", (event) => {
+    //   const eventData = event.data;
+    //   if (eventData.message === "pagePushed") {
+    //     this.pagePush(eventData.historyLength);
+    //   }
+    // });
   }
 
-  public pagePush(length: number) {
-    console.log("pagePushed");
-    this.navLength = length;
-    this.navbarIcon = "arrow-back";
-  }
+  // public pagePush(length: number) {
+  //   console.log("pagePushed");
+  //   this.navLength = length;
+  //   this.navbarIcon = "arrow-back";
+  // }
 
   public ngAfterViewInit() {
     this.mainObjectElement = this.mainObject.nativeElement;
