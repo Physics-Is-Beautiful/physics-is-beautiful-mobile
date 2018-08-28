@@ -11,14 +11,15 @@ import { GooglePlus } from "@ionic-native/google-plus";
 import { HTTP } from "@ionic-native/http";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { NativeStorage } from "@ionic-native/native-storage";
+import { Network } from "@ionic-native/network";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Toast } from "@ionic-native/toast";
+import { ClassroomPage } from "../pages/classroom/classroom";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { LoginPage } from "../pages/login/login";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
-import { Network } from "@ionic-native/network";
-import { PibAuthProvider } from '../providers/pib-auth/pib-auth';
+import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -28,6 +29,7 @@ import { PibAuthProvider } from '../providers/pib-auth/pib-auth';
     HomePage,
     LoginPage,
     DiscussionPage,
+    ClassroomPage,
   ],
 
   entryComponents: [
@@ -35,6 +37,7 @@ import { PibAuthProvider } from '../providers/pib-auth/pib-auth';
     HomePage,
     LoginPage,
     DiscussionPage,
+    ClassroomPage,
   ],
 
   imports: [
@@ -55,7 +58,7 @@ import { PibAuthProvider } from '../providers/pib-auth/pib-auth';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider,
     Network,
-    PibAuthProvider
+    PibAuthProvider,
   ],
 })
 export class AppModule {}

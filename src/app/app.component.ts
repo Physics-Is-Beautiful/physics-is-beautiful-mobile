@@ -5,6 +5,7 @@ import { Events, Nav, Platform } from "ionic-angular";
 
 import { HttpClient } from "@angular/common/http";
 import { NativeAudio } from "@ionic-native/native-audio";
+import { ClassroomPage } from "../pages/classroom/classroom";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
@@ -27,6 +28,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: "Home", component: HomePage },
+      { title: "Classroom", component: ClassroomPage },
       { title: "Discussion", component: DiscussionPage },
       { title: "Login / Sign Up", component: LoginPage },
     ];
