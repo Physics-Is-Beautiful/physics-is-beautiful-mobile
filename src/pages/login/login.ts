@@ -36,11 +36,16 @@ export class LoginPage {
   private triedSocialLogin: boolean = false;
   private loggedInInitially: boolean | undefined;
   private messageListener: () => void;
+  private shouldReturnToPage: boolean = false;
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
               private toastCtrl: ToastController, private iab: InAppBrowser, public events: Events,
               private settings: GlobalSettingsProvider, private pibAuth: PibAuthProvider, private zone: NgZone) {
+
+    if (this.navParams.get("goBack")) {
+      this.shouldReturnToPage = true;
+    }
 
     this.platform.ready().then(() => {
 
@@ -77,12 +82,12 @@ export class LoginPage {
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
           this.events.publish("component:updateNav:login");
-          this.navCtrl.setRoot(HomePage);
+          this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged out.");
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
           this.events.publish("component:updateNav:logout");
-          this.navCtrl.setRoot(HomePage);
+          this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
         } else if (this.triedSocialLogin) {
           this.updateUrl("/accounts/login/?pib_mobile=true");
