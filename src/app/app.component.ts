@@ -68,9 +68,9 @@ export class MyApp {
 
   public updateNav(loginStatus: boolean) {
     if (loginStatus) {
-      this.pages[2].title = "Login / Sign Up";
+      this.pages[3].title = "Login / Sign Up";
     } else {
-      this.pages[2].title = "Logout";
+      this.pages[3].title = "Logout";
     }
   }
 }
