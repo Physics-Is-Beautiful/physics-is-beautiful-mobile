@@ -1,9 +1,9 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Renderer2, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { IonicPage, MenuController, NavController, NavParams, Platform } from "ionic-angular";
+import { Config, IonicPage, MenuController, Navbar, NavController, NavParams, Platform } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 
-/**
+/*
  * Generated class for the DiscussionPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
@@ -24,16 +24,28 @@ export class DiscussionPage {
   public navbarIcon: string = "menu";
   @ViewChild("mainObject") public mainObject: any;
   public mainObjectElement: any;
-  private navLength: number = 0;
+  public navBarElement: any;
+
+  @ViewChild(Navbar) public navBar: Navbar;
+
+  private messageListener: () => void;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer,
               private globalSettingsProvider: GlobalSettingsProvider, private menuCtrl: MenuController,
-              private platform: Platform) {
+              private platform: Platform, private renderer: Renderer2, private config: Config) {
 
     const siteUrl = globalSettingsProvider.siteUrl();
     const url = siteUrl + this.node;
     console.log(url);
     this.pageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+    this.platform.ready().then(() => {
+
+      this.messageListener = this.renderer.listen(window, "message", (evt) => {
+        this.receiveMessage(evt);
+      });
+
+    });
 
     // window.addEventListener("message", (event) => {
     //   const eventData = event.data;
@@ -51,8 +63,47 @@ export class DiscussionPage {
 
   public ngAfterViewInit() {
     this.mainObjectElement = this.mainObject.nativeElement;
+    this.navBarElement = this.navBar.getNativeElement();
     const backAction =  this.platform.registerBackButtonAction(() => {
-      this.mainObjectElement.contentWindow.postMessage("goBack", "*");
+      this.goBack();
     }, 2);
+    this.navBar.backButtonClick = () => this.toggleMenu();
+  }
+
+  private receiveMessage(evt) {
+    if ("message" in evt.data) {
+      switch (evt.data.message) {
+        case "canGoBack":
+          const canGoBack = evt.data.data;
+          console.log("canGoBack " + canGoBack);
+          if (canGoBack) {
+            this.updateBack();
+          } else {
+            this.updateMenu();
+          }
+          break;
+      }
+    }
+  }
+
+  private updateBack() {
+    console.log("updateBack");
+    this.navBarElement.querySelector(".back-button").style.display = "initial";
+    this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "none";
+    this.navBar.backButtonClick = () => this.goBack();
+  }
+
+  private updateMenu() {
+    console.log("updateMenu");
+    this.navBarElement.querySelector(".back-button").style.display = "none";
+    this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "initial";
+  }
+
+  private goBack() {
+    this.mainObjectElement.contentWindow.postMessage("goBack", "*");
+  }
+
+  private toggleMenu() {
+    this.menuCtrl.toggle();
   }
 }
