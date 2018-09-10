@@ -70,6 +70,11 @@ export class DiscussionPage {
     this.navBar.backButtonClick = () => this.toggleMenu();
   }
 
+  public ionViewWillLeave() {
+    this.messageListener();
+    console.log("discussion message listener removed");
+  }
+
   private receiveMessage(evt) {
     if ("message" in evt.data) {
       switch (evt.data.message) {
