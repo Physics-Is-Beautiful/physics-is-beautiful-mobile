@@ -37,6 +37,7 @@ export class LoginPage {
   private loggedInInitially: boolean | undefined;
   private messageListener: () => void;
   private shouldReturnToPage: boolean = false;
+  private shouldNotLogout: boolean = false;
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
@@ -45,6 +46,9 @@ export class LoginPage {
 
     if (this.navParams.get("goBack")) {
       this.shouldReturnToPage = true;
+    }
+    if (this.navParams.get("goHome")) {
+      this.shouldNotLogout = true;
     }
 
     this.platform.ready().then(() => {
@@ -74,6 +78,11 @@ export class LoginPage {
         if (this.pibAuth.isLoggedIn(evt.data.data)) {
           node = "/accounts/logout/?pib_mobile=true&next=/accounts/blank";
           this.loggedInInitially = true;
+
+          if (this.shouldNotLogout) {
+            this.navCtrl.setRoot(HomePage) ;
+            this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
+          } // TODO modularize
         }
 
         this.updateUrl(node);

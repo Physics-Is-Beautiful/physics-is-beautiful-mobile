@@ -5,9 +5,11 @@ import { Events, Nav, Platform } from "ionic-angular";
 
 import { HttpClient } from "@angular/common/http";
 import { NativeAudio } from "@ionic-native/native-audio";
+import { NativeStorage } from "@ionic-native/native-storage";
 import { ClassroomPage } from "../pages/classroom/classroom";
 import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
+import { InitialPage } from "../pages/initial/initial";
 import { LoginPage } from "../pages/login/login";
 
 @Component({
@@ -22,8 +24,18 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private nativeAudio: NativeAudio, private http: HttpClient,
-              public events: Events) {
+              public events: Events, private nativeStorage: NativeStorage) {
+
     this.initializeApp();
+
+    this.nativeStorage.keys().then((data) => {
+      if (data.indexOf("firstTime") === -1) {
+        this.platform.ready().then(() => {
+          this.nativeStorage.setItem("firstTime", true);
+          this.nav.setRoot(InitialPage);
+        });
+      }
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [

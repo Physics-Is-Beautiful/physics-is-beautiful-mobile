@@ -17,6 +17,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { Toast } from "@ionic-native/toast";
 import { ClassroomPage } from "../pages/classroom/classroom";
 import { DiscussionPage } from "../pages/discussion/discussion";
+import { InitialPage } from "../pages/initial/initial";
 import { LoginPage } from "../pages/login/login";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
@@ -30,6 +31,7 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     LoginPage,
     DiscussionPage,
     ClassroomPage,
+    InitialPage,
   ],
 
   entryComponents: [
@@ -38,6 +40,7 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     LoginPage,
     DiscussionPage,
     ClassroomPage,
+    InitialPage,
   ],
 
   imports: [
