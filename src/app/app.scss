@@ -21,3 +21,20 @@
     border: none;
     overflow-x: hidden;
 }
+
+.toolbar-background {
+    background: linear-gradient(to right, #3dbaf4 31%,#04a8f4 60%,#1caff6 100%)
+}
+
+ion-navbar * {
+    color: white;
+}
+
+.toolbar-title {
+    color: white;
+}
+
+#logoImage {
+    max-height: 34px;
+    transform: translateY(2px);
+}
