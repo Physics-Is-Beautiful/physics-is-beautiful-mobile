@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.10.0",
     "@ionic-native/google-plus": "^4.11.0",
+    "@ionic-native/header-color": "^4.14.0",
     "@ionic-native/http": "^4.10.1",
     "@ionic-native/in-app-browser": "^4.10.1",
     "@ionic-native/native-audio": "^4.11.0",
@@ -39,6 +40,7 @@
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-googleplus": "^5.3.0",
+    "cordova-plugin-headercolor": "^1.0.0",
     "cordova-plugin-inappbrowser": "^3.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^2.0.1",
@@ -76,7 +78,8 @@
       "cordova-plugin-x-toast": {},
       "cordova-plugin-nativeaudio": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-secure-storage": {}
+      "cordova-plugin-secure-storage": {},
+      "cordova-plugin-headercolor": {}
     },
     "platforms": [
       "browser",
