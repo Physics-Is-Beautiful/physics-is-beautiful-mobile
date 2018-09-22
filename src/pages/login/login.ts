@@ -38,6 +38,8 @@ export class LoginPage {
   private messageListener: () => void;
   private shouldReturnToPage: boolean = false;
   private shouldNotLogout: boolean = false;
+  private polling: boolean = false;
+  private browser: any;
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
@@ -95,6 +97,13 @@ export class LoginPage {
           this.presentToast("Successfully logged out.");
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
+
+          // clear interval and close browser
+          if (this.browser !== null) {
+            this.stopPolling();
+            this.browser.close();
+          }
+
           this.events.publish("component:updateNav:logout");
           this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
@@ -106,26 +115,48 @@ export class LoginPage {
     }
   }
 
+  public startPolling() {
+    this.polling = true;
+    this.poll();
+  }
+
+  public poll() {
+    if (this.polling) {
+      this.updateUrl("/accounts/blank");
+      window.setTimeout(() => {
+        this.poll();
+      }, 1000);
+    }
+  }
+
+  public stopPolling() {
+    this.polling = false;
+  }
+
   public doGoogleLogin() {
     console.log("googleLogin");
-    const browser = this.iab.create(this.settings.siteUrl() +
+    this.browser = this.iab.create(this.settings.siteUrl() +
       "/accounts/google/login/?process=&next=/accounts/mobile-next");
 
+    this.startPolling();
     this.triedSocialLogin = true;
 
-    browser.on("exit").subscribe(() => {
+    this.browser.on("exit").subscribe(() => {
+      this.stopPolling();
       this.updateUrl("/accounts/blank");
     });
   }
 
   public doFacebookLogin() {
     console.log("facebookLogin");
-    const browser = this.iab.create(this.settings.siteUrl() +
+    this.browser = this.iab.create(this.settings.siteUrl() +
       "/accounts/facebook/login/?process=&next=/accounts/mobile-next");
 
+    this.startPolling();
     this.triedSocialLogin = true;
 
-    browser.on("exit").subscribe(() => {
+    this.browser.on("exit").subscribe(() => {
+      this.stopPolling();
       this.updateUrl("/accounts/blank");
     });
   }

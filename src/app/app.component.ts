@@ -28,14 +28,16 @@ export class MyApp {
 
     this.initializeApp();
 
-    this.nativeStorage.keys().then((data) => {
-      if (data.indexOf("firstTime") === -1) {
-        this.platform.ready().then(() => {
-          this.nativeStorage.setItem("firstTime", true);
-          this.nav.setRoot(InitialPage);
-        });
-      }
-    });
+    if (!this.platform.is("core")) {
+      this.nativeStorage.keys().then((data) => {
+        if (data.indexOf("firstTime") === -1) {
+          this.platform.ready().then(() => {
+            this.nativeStorage.setItem("firstTime", true);
+            this.nav.setRoot(InitialPage);
+          });
+        }
+      });
+    }
 
     // used for an example of ngFor and navigation
     this.pages = [
