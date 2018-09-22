@@ -136,7 +136,7 @@ export class LoginPage {
   public doGoogleLogin() {
     console.log("googleLogin");
     this.browser = this.iab.create(this.settings.siteUrl() +
-      "/accounts/google/login/?process=&next=/accounts/mobile-next");
+      "/accounts/google/login/?process=&next=/accounts/mobile-next", "_self", this.settings.inAppBrowserOptions());
 
     this.startPolling();
     this.triedSocialLogin = true;
@@ -150,7 +150,7 @@ export class LoginPage {
   public doFacebookLogin() {
     console.log("facebookLogin");
     this.browser = this.iab.create(this.settings.siteUrl() +
-      "/accounts/facebook/login/?process=&next=/accounts/mobile-next");
+      "/accounts/facebook/login/?process=&next=/accounts/mobile-next", "_self", this.settings.inAppBrowserOptions());
 
     this.startPolling();
     this.triedSocialLogin = true;

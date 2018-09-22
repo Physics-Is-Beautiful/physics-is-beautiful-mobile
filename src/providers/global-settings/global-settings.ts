@@ -23,4 +23,8 @@ export class GlobalSettingsProvider {
     return this.rootUrl;
   }
 
+  public inAppBrowserOptions(): string {
+    return "location=no,clearcache=yes";
+  }
+
 }
