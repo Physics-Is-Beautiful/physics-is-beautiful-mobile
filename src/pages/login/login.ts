@@ -143,6 +143,7 @@ export class LoginPage {
 
     this.browser.on("exit").subscribe(() => {
       this.stopPolling();
+      this.loggedInInitially = undefined;
       this.updateUrl("/accounts/blank");
     });
   }
@@ -157,6 +158,7 @@ export class LoginPage {
 
     this.browser.on("exit").subscribe(() => {
       this.stopPolling();
+      this.loggedInInitially = undefined;
       this.updateUrl("/accounts/blank");
     });
   }
