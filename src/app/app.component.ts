@@ -20,7 +20,7 @@ export class MyApp {
 
   public rootPage: any = HomePage;
 
-  public pages: Array<{title: string, component: any}>;
+  public pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private nativeAudio: NativeAudio, private http: HttpClient,
@@ -41,10 +41,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: "Home", component: HomePage },
-      { title: "Classroom", component: ClassroomPage },
-      { title: "Discussion", component: DiscussionPage },
-      { title: "Login / Sign Up", component: LoginPage },
+      { title: "Home", component: HomePage, icon: "home" },
+      { title: "Classroom", component: ClassroomPage, icon: "school" },
+      { title: "Discussion", component: DiscussionPage, icon: "chatboxes" },
+      { title: "Login / Sign Up", component: LoginPage, icon: "contact" },
     ];
 
     this.events.subscribe("component:updateNav:logout", () => {

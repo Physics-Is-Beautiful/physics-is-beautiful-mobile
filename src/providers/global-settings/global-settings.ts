@@ -24,7 +24,7 @@ export class GlobalSettingsProvider {
   }
 
   public inAppBrowserOptions(): string {
-    return "location=no,clearcache=yes";
+    return "location=no,clearcache=yes,zoom=no";
   }
 
 }
