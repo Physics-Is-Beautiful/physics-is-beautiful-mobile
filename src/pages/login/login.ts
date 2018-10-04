@@ -99,7 +99,7 @@ export class LoginPage {
           // successfully logged in
 
           // clear interval and close browser
-          if (this.browser !== null) {
+          if (this.browser !== undefined) {
             this.stopPolling();
             this.browser.close();
           }
