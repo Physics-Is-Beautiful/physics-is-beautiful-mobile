@@ -16,9 +16,13 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Toast } from "@ionic-native/toast";
 import { ClassroomPage } from "../pages/classroom/classroom";
+import { ClassroomPageModule } from "../pages/classroom/classroom.module";
 import { DiscussionPage } from "../pages/discussion/discussion";
+import { DiscussionPageModule } from "../pages/discussion/discussion.module";
 import { InitialPage } from "../pages/initial/initial";
+import { InitialPageModule } from "../pages/initial/initial.module";
 import { LoginPage } from "../pages/login/login";
+import { LoginPageModule } from "../pages/login/login.module";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
 
@@ -28,10 +32,10 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
-    DiscussionPage,
-    ClassroomPage,
-    InitialPage,
+    // LoginPage,
+    // DiscussionPage,
+    // ClassroomPage,
+    // InitialPage,
   ],
 
   entryComponents: [
@@ -47,6 +51,10 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    ClassroomPageModule,
+    DiscussionPageModule,
+    InitialPageModule,
+    LoginPageModule,
   ],
 
   providers: [
