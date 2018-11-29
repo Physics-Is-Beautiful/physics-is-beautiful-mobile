@@ -70,7 +70,6 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-googleplus": {
         "WEB_APPLICATION_CLIENT_ID": "com.googleusercontent.apps.1090448644110-r8o52h1sqpbq7pp1j8ougcr1e35qicqg"
@@ -80,7 +79,8 @@
       "cordova-plugin-nativeaudio": {},
       "cordova-plugin-network-information": {},
       "cordova-plugin-secure-storage": {},
-      "cordova-plugin-headercolor": {}
+      "cordova-plugin-headercolor": {},
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
       "browser",
