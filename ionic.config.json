@@ -7,9 +7,10 @@
   "pro_id": "71692acc",
   "proxies": [
     {
-      "path":"/api",
+      "path": "/api",
       "proxyUrl": "http://localhost:8000/api",
       "rejectUnauthorized": false
     }
-  ]
+  ],
+  "id": "71692acc"
 }
