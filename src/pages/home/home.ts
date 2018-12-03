@@ -77,6 +77,12 @@ export class HomePage {
     console.log("updateBack");
     this.navBarElement.querySelector(".back-button").style.display = "initial";
     this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "none";
+
+    // iOS spacing fix
+    if (this.platform.is('ios')) {
+      this.navBarElement.querySelector("#logoImage").style.paddingLeft = "1em";
+    }
+
     this.navBar.backButtonClick = () => this.goBack();
   }
 
@@ -84,6 +90,10 @@ export class HomePage {
     console.log("updateMenu");
     this.navBarElement.querySelector(".back-button").style.display = "none";
     this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "initial";
+
+    if (this.platform.is('ios')) {
+      this.navBarElement.querySelector("#logoImage").style.paddingLeft = "auto";
+    }
   }
 
   private goBack() {
