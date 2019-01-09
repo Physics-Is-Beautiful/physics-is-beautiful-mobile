@@ -66,30 +66,38 @@ export class LoginPage {
 
   public receiveMessage(evt) {
     console.log("login receive");
-    console.log("receiving message: " + JSON.stringify(evt.data));
+    console.log("receiving message: " + JSON.stringify(evt.data.data));
     console.log("loggedInInitially " + this.loggedInInitially);
     if (evt.data === "googleLogin") {
       this.doGoogleLogin();
     } else if (evt.data === "facebookLogin") {
       this.doFacebookLogin();
     } else if (evt.data.message === "loginInfo") {
+      console.log("hello1");
       if (typeof this.loggedInInitially === "undefined") {
+        console.log("hello2");
 
         this.loggedInInitially = false;
         let node = "/accounts/login/?pib_mobile=true";
-        if (this.pibAuth.isLoggedIn(evt.data.data)) {
+        if (this.pibAuth.isLoggedIn(JSON.parse(evt.data.data))) {
           node = "/accounts/logout/?pib_mobile=true&next=/accounts/blank";
           this.loggedInInitially = true;
 
+          console.log('loggedin');
+
           if (this.shouldNotLogout) {
             this.navCtrl.setRoot(HomePage) ;
-            this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
+            this.presentToast("Successfully logged in as " + JSON.parse(evt.data.data).display_name + "!");
           } // TODO modularize
         }
 
+        console.log("update " + node);
+
         this.updateUrl(node);
       } else {
-        const loggedInNow = this.pibAuth.isLoggedIn(evt.data.data);
+        console.log("hello3");
+
+        const loggedInNow = this.pibAuth.isLoggedIn(JSON.parse(evt.data.data));
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
           this.events.publish("component:updateNav:login");
@@ -106,7 +114,7 @@ export class LoginPage {
 
           this.events.publish("component:updateNav:logout");
           this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
-          this.presentToast("Successfully logged in as " + evt.data.data.display_name + "!");
+          this.presentToast("Successfully logged in as " + JSON.parse(evt.data.data).display_name + "!");
         } else if (this.triedSocialLogin) {
           this.updateUrl("/accounts/login/?pib_mobile=true");
           this.triedSocialLogin = false;
