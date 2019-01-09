@@ -4,7 +4,6 @@
     "cordova": {}
   },
   "type": "ionic-angular",
-  "pro_id": "71692acc",
   "proxies": [
     {
       "path": "/api",
