@@ -74,20 +74,23 @@ export class LoginPage {
       this.doFacebookLogin();
     } else if (evt.data.message === "loginInfo") {
       console.log("hello1");
+      const loginData = JSON.parse(JSON.parse(evt.data.data));
+
       if (typeof this.loggedInInitially === "undefined") {
         console.log("hello2");
 
         this.loggedInInitially = false;
         let node = "/accounts/login/?pib_mobile=true";
-        if (this.pibAuth.isLoggedIn(JSON.parse(evt.data.data))) {
+        console.log(loginData);
+        if (this.pibAuth.isLoggedIn(loginData)) {
           node = "/accounts/logout/?pib_mobile=true&next=/accounts/blank";
           this.loggedInInitially = true;
 
-          console.log('loggedin');
+          console.log("loggedin");
 
           if (this.shouldNotLogout) {
             this.navCtrl.setRoot(HomePage) ;
-            this.presentToast("Successfully logged in as " + JSON.parse(evt.data.data).display_name + "!");
+            this.presentToast("Successfully logged in as " + loginData.display_name + "!");
           } // TODO modularize
         }
 
@@ -97,7 +100,7 @@ export class LoginPage {
       } else {
         console.log("hello3");
 
-        const loggedInNow = this.pibAuth.isLoggedIn(JSON.parse(evt.data.data));
+        const loggedInNow = this.pibAuth.isLoggedIn(loginData);
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
           this.events.publish("component:updateNav:login");
@@ -114,7 +117,7 @@ export class LoginPage {
 
           this.events.publish("component:updateNav:logout");
           this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
-          this.presentToast("Successfully logged in as " + JSON.parse(evt.data.data).display_name + "!");
+          this.presentToast("Successfully logged in as " + loginData.display_name + "!");
         } else if (this.triedSocialLogin) {
           this.updateUrl("/accounts/login/?pib_mobile=true");
           this.triedSocialLogin = false;
