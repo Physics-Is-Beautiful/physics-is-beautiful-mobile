@@ -25,6 +25,8 @@ import { LoginPage } from "../pages/login/login";
 import { LoginPageModule } from "../pages/login/login.module";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
+import { ResourcesPage } from "../pages/resources/resources";
+import { ResourcesPageModule } from "../pages/resources/resources.module";
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -45,6 +47,7 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     DiscussionPage,
     ClassroomPage,
     InitialPage,
+    ResourcesPage,
   ],
 
   imports: [
@@ -55,6 +58,7 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     DiscussionPageModule,
     InitialPageModule,
     LoginPageModule,
+    ResourcesPageModule,
   ],
 
   providers: [

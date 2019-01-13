@@ -11,6 +11,7 @@ import { DiscussionPage } from "../pages/discussion/discussion";
 import { HomePage } from "../pages/home/home";
 import { InitialPage } from "../pages/initial/initial";
 import { LoginPage } from "../pages/login/login";
+import { ResourcesPage } from "../pages/resources/resources";
 
 @Component({
   templateUrl: "app.html",
@@ -44,7 +45,9 @@ export class MyApp {
       { title: "Home", component: HomePage, icon: "home" },
       { title: "Classroom", component: ClassroomPage, icon: "school" },
       { title: "Discussion", component: DiscussionPage, icon: "chatboxes" },
+      { title: "Resources", component: ResourcesPage, icon: "book" },
       { title: "Login / Sign Up", component: LoginPage, icon: "contact" },
+
     ];
 
     this.events.subscribe("component:updateNav:logout", () => {

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button icon-only menuToggle>
+        <ion-icon [name]="navbarIcon"></ion-icon>
+      </button>
+    <ion-title>Resources</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <iframe #mainObject id="main-object"  [src]="pageUrl">
+    <p>Loading...</p>
+  </iframe>
+</ion-content>

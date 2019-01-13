@@ -1,0 +1,13 @@
+
+// Override default button rules;
+
+page-resources {
+    .back-button {
+        display: none;
+    }
+    
+    .bar-button-menutoggle {
+        display: initial;
+    }
+}
+
