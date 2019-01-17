@@ -17,7 +17,10 @@ export class PibAuthProvider {
   }
 
   public processLoginData(data: any) {
-    if ("is_anonymous" in data) {
+    if (typeof(data) === "string") {
+      data = JSON.parse(data);
+    }
+    if (data.is_anonymous) {
       this.events.publish("component:updateNav:login");
     } else {
       this.events.publish("component:updateNav:logout");
@@ -25,6 +28,11 @@ export class PibAuthProvider {
   }
 
   public isLoggedIn(data: any) {
-    return !("is_anonymous" in data);
+    // alert(data);
+    if (typeof(data) === "string") {
+      data = JSON.parse(data);
+    }
+    // alert("logged in: " + !data.is_anonymous);
+    return !(data.is_anonymous);
   }
 }

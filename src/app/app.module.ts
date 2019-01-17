@@ -23,10 +23,10 @@ import { InitialPage } from "../pages/initial/initial";
 import { InitialPageModule } from "../pages/initial/initial.module";
 import { LoginPage } from "../pages/login/login";
 import { LoginPageModule } from "../pages/login/login.module";
-import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
-import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
 import { ResourcesPage } from "../pages/resources/resources";
 import { ResourcesPageModule } from "../pages/resources/resources.module";
+import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
+import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
 
 @NgModule({
   bootstrap: [IonicApp],

@@ -74,14 +74,14 @@ export class LoginPage {
       this.doFacebookLogin();
     } else if (evt.data.message === "loginInfo") {
       console.log("hello1");
-      const loginData = JSON.parse(JSON.parse(evt.data.data));
+      const loginData = JSON.parse(evt.data.data);
 
       if (typeof this.loggedInInitially === "undefined") {
         console.log("hello2");
 
         this.loggedInInitially = false;
         let node = "/accounts/login/?pib_mobile=true";
-        console.log(loginData);
+        console.log("loginData" + loginData);
         if (this.pibAuth.isLoggedIn(loginData)) {
           node = "/accounts/logout/?pib_mobile=true&next=/accounts/blank";
           this.loggedInInitially = true;
@@ -93,6 +93,8 @@ export class LoginPage {
             this.presentToast("Successfully logged in as " + loginData.display_name + "!");
           } // TODO modularize
         }
+
+        // alert("update " + node)
 
         console.log("update " + node);
 
