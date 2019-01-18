@@ -46,7 +46,7 @@ export class MyApp {
       { title: "Home", component: HomePage, icon: "home" },
       { title: "Classroom", component: ClassroomPage, icon: "school" },
       { title: "Discussion", component: DiscussionPage, icon: "chatboxes" },
-      { title: "Resources", component: ResourcesPage, icon: "book" },
+      { title: "Resources", component: ResourcesPage, icon: "filing" },
       { title: "Login / Sign Up", component: LoginPage, icon: "contact" },
 
     ];

@@ -79,7 +79,7 @@ export class HomePage {
     this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "none";
 
     // iOS spacing fix
-    if (this.platform.is('ios')) {
+    if (this.platform.is("ios")) {
       this.navBarElement.querySelector("#logoImage").style.paddingLeft = "1em";
     }
 
@@ -91,7 +91,7 @@ export class HomePage {
     this.navBarElement.querySelector(".back-button").style.display = "none";
     this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "initial";
 
-    if (this.platform.is('ios')) {
+    if (this.platform.is("ios")) {
       this.navBarElement.querySelector("#logoImage").style.paddingLeft = "auto";
     }
   }
