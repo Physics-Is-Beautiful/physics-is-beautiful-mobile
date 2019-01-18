@@ -27,6 +27,7 @@ import { ResourcesPage } from "../pages/resources/resources";
 import { ResourcesPageModule } from "../pages/resources/resources.module";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
+import { HeaderColor } from "@ionic-native/header-color";
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -69,6 +70,7 @@ import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
     NativeStorage,
     Toast,
     NativeAudio,
+    HeaderColor,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GlobalSettingsProvider,

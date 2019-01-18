@@ -4,6 +4,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { Events, Nav, Platform } from "ionic-angular";
 
 import { HttpClient } from "@angular/common/http";
+import { HeaderColor } from "@ionic-native/header-color";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { ClassroomPage } from "../pages/classroom/classroom";
@@ -25,7 +26,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               private nativeAudio: NativeAudio, private http: HttpClient,
-              public events: Events, private nativeStorage: NativeStorage) {
+              public events: Events, private nativeStorage: NativeStorage, private headerColor: HeaderColor) {
 
     this.initializeApp();
 
@@ -65,6 +66,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.headerColor.tint("#0dabf5");
 
       this.nativeAudio.preloadSimple("audioComplete", "assets/audio/complete.mp3");
       this.nativeAudio.preloadSimple("audioContinue", "assets/audio/continue.mp3");
