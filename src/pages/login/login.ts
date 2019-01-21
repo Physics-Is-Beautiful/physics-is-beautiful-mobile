@@ -1,6 +1,6 @@
 import { Component, NgZone, Renderer2, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { InAppBrowser, InAppBrowserObject } from "@ionic-native/in-app-browser";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { Events, IonicPage, NavController, NavParams, Platform, ToastController } from "ionic-angular";
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
@@ -39,7 +39,7 @@ export class LoginPage {
   private shouldReturnToPage: boolean = false;
   private shouldNotLogout: boolean = false;
   private polling: boolean = false;
-  private browser: any;
+  private browser: InAppBrowserObject;
 
   constructor(private platform: Platform, public navCtrl: NavController, public navParams: NavParams,
               private sanitizer: DomSanitizer, private renderer: Renderer2, private nativeStorage: NativeStorage,
@@ -68,6 +68,8 @@ export class LoginPage {
     console.log("login receive");
     console.log("receiving message: " + JSON.stringify(evt.data.data));
     console.log("loggedInInitially " + this.loggedInInitially);
+    // alert("receiving message: " + JSON.stringify(evt.data.data));
+
     if (evt.data === "googleLogin") {
       this.doGoogleLogin();
     } else if (evt.data === "facebookLogin") {
@@ -123,6 +125,9 @@ export class LoginPage {
         } else if (this.triedSocialLogin) {
           this.updateUrl("/accounts/login/?pib_mobile=true");
           this.triedSocialLogin = false;
+        } else if (this.polling && !loggedInNow) {
+          // re-poll
+          this.poll();
         }
       }
     }
@@ -136,9 +141,10 @@ export class LoginPage {
   public poll() {
     if (this.polling) {
       this.updateUrl("/accounts/blank");
-      window.setTimeout(() => {
-        this.poll();
-      }, 1000);
+      // bad and relies on luck, as info could take a while to arrive
+      // window.setTimeout(() => {
+      //   this.poll();
+      // }, 3000);
     }
   }
 
@@ -149,7 +155,7 @@ export class LoginPage {
   public doGoogleLogin() {
     console.log("googleLogin");
     this.browser = this.iab.create(this.settings.siteUrl() +
-      "/accounts/google/login/?process=&next=/accounts/mobile-next", "_self", this.settings.inAppBrowserOptions());
+      "/accounts/google/login/?process=&next=/accounts/mobile-next", "_blank", this.settings.inAppBrowserOptions());
 
     this.startPolling();
     this.triedSocialLogin = true;
@@ -164,7 +170,7 @@ export class LoginPage {
   public doFacebookLogin() {
     console.log("facebookLogin");
     this.browser = this.iab.create(this.settings.siteUrl() +
-      "/accounts/facebook/login/?process=&next=/accounts/mobile-next", "_self", this.settings.inAppBrowserOptions());
+      "/accounts/facebook/login/?process=&next=/accounts/mobile-next", "_blank", this.settings.inAppBrowserOptions());
 
     this.startPolling();
     this.triedSocialLogin = true;
