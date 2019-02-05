@@ -68,6 +68,7 @@ export class MyApp {
       this.splashScreen.hide();
       this.headerColor.tint("#0dabf5");
 
+      console.log("is iOS? : " + this.platform.is("ios"));
       this.nativeAudio.preloadSimple("audioComplete", "assets/audio/complete.mp3");
       this.nativeAudio.preloadSimple("audioContinue", "assets/audio/continue.mp3");
       this.nativeAudio.preloadSimple("audioCorrect", "assets/audio/correct.mp3");
