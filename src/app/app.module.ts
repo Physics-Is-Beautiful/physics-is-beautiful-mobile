@@ -8,6 +8,7 @@ import { MyApp } from "./app.component";
 
 import { HttpClientModule } from "@angular/common/http";
 import { GooglePlus } from "@ionic-native/google-plus";
+import { HeaderColor } from "@ionic-native/header-color";
 import { HTTP } from "@ionic-native/http";
 import { NativeAudio } from "@ionic-native/native-audio";
 import { NativeStorage } from "@ionic-native/native-storage";
@@ -15,6 +16,7 @@ import { Network } from "@ionic-native/network";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Toast } from "@ionic-native/toast";
+import { UserAgent } from "@ionic-native/user-agent";
 import { ClassroomPage } from "../pages/classroom/classroom";
 import { ClassroomPageModule } from "../pages/classroom/classroom.module";
 import { DiscussionPage } from "../pages/discussion/discussion";
@@ -27,7 +29,6 @@ import { ResourcesPage } from "../pages/resources/resources";
 import { ResourcesPageModule } from "../pages/resources/resources.module";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
-import { HeaderColor } from "@ionic-native/header-color";
 
 @NgModule({
   bootstrap: [IonicApp],
@@ -76,6 +77,7 @@ import { HeaderColor } from "@ionic-native/header-color";
     GlobalSettingsProvider,
     Network,
     PibAuthProvider,
+    UserAgent,
   ],
 })
 export class AppModule {}
