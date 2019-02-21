@@ -7,8 +7,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <iframe #mainObject id="main-object"  [src]="pageUrl">
+<ion-content has-bouncing="false">
+  <iframe data-tap-disabled="true" #mainObject id="main-object"  [src]="pageUrl">
     <p>Loading...</p>
   </iframe>
 </ion-content>
