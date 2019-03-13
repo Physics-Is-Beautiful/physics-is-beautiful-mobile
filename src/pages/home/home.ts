@@ -74,16 +74,18 @@ export class HomePage {
   }
 
   private updateBack() {
-    console.log("updateBack");
-    this.navBarElement.querySelector(".back-button").style.display = "initial";
-    this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "none";
+    if (!this.platform.is("ios")) {
+      console.log("updateBack");
+      this.navBarElement.querySelector(".back-button").style.display = "initial";
+      this.navBarElement.querySelector(".bar-button-menutoggle").style.display = "none";
 
-    // iOS spacing fix
-    if (this.platform.is("ios")) {
-      this.navBarElement.querySelector("#logoImage").style.paddingLeft = "1em";
+      // iOS spacing fix
+      // if (this.platform.is("ios")) {
+      //   this.navBarElement.querySelector("#logoImage").style.paddingLeft = "1em";
+      // }
+
+      this.navBar.backButtonClick = () => this.goBack();
     }
-
-    this.navBar.backButtonClick = () => this.goBack();
   }
 
   private updateMenu() {
