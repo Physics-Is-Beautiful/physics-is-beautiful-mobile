@@ -1,4 +1,4 @@
-import { ErrorHandler, NgModule } from "@angular/core";
+import { enableProdMode, ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
@@ -29,6 +29,8 @@ import { ResourcesPage } from "../pages/resources/resources";
 import { ResourcesPageModule } from "../pages/resources/resources.module";
 import { GlobalSettingsProvider } from "../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../providers/pib-auth/pib-auth";
+
+enableProdMode();
 
 @NgModule({
   bootstrap: [IonicApp],
