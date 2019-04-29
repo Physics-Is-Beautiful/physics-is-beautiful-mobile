@@ -4,6 +4,7 @@ import { IonicPage, MenuController, Navbar, NavController, NavParams, Platform }
 import { GlobalSettingsProvider } from "../../providers/global-settings/global-settings";
 import { PibAuthProvider } from "../../providers/pib-auth/pib-auth";
 import { LoginPage } from "../login/login";
+import { HomePage } from "../home/home";
 
 /**
  * Generated class for the ClassroomPage page.
@@ -76,7 +77,9 @@ export class ClassroomPage {
           this.updateUrl("/classroom/?pib_mobile=true");
         } else if (!this.loginPageOpened) {
           this.loginPageOpened = true;
+          this.navCtrl.setRoot(HomePage);
           this.navCtrl.push(LoginPage, {
+            continuePage: ClassroomPage,
             goBack: true,
           });
         }

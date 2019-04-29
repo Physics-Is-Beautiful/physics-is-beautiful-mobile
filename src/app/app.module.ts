@@ -7,7 +7,6 @@ import { HomePage } from "../pages/home/home";
 import { MyApp } from "./app.component";
 
 import { HttpClientModule } from "@angular/common/http";
-import { GooglePlus } from "@ionic-native/google-plus";
 import { HeaderColor } from "@ionic-native/header-color";
 import { HTTP } from "@ionic-native/http";
 import { NativeAudio } from "@ionic-native/native-audio";
@@ -69,7 +68,6 @@ enableProdMode();
     StatusBar,
     SplashScreen,
     InAppBrowser,
-    GooglePlus,
     NativeStorage,
     Toast,
     NativeAudio,

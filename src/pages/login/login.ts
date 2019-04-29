@@ -7,7 +7,6 @@ import { GlobalSettingsProvider } from "../../providers/global-settings/global-s
 import { HomePage } from "../home/home";
 
 import { HttpClient } from "@angular/common/http";
-import { GooglePlus } from "@ionic-native/google-plus";
 import { PibAuthProvider } from "../../providers/pib-auth/pib-auth";
 
 /**
@@ -108,7 +107,7 @@ export class LoginPage {
         if (this.loggedInInitially && !loggedInNow) {
           // successfully logged out
           this.events.publish("component:updateNav:login");
-          this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
+          this.shouldReturnToPage ? this.navCtrl.setRoot(this.navParams.get("continuePage")) : this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged out.");
         } else if (!this.loggedInInitially && loggedInNow) {
           // successfully logged in
@@ -120,7 +119,7 @@ export class LoginPage {
           }
 
           this.events.publish("component:updateNav:logout");
-          this.shouldReturnToPage ? this.navCtrl.pop() : this.navCtrl.setRoot(HomePage);
+          this.shouldReturnToPage ? this.navCtrl.setRoot(this.navParams.get("continuePage")) : this.navCtrl.setRoot(HomePage);
           this.presentToast("Successfully logged in as " + loginData.display_name + "!");
         } else if (this.triedSocialLogin) {
           this.updateUrl("/accounts/login/?pib_mobile=true");
